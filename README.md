@@ -1,5 +1,5 @@
-# Alogorithm
-# Baekjoon with JAVA
+# 👻Alogorithm👻
+  Baekjoon with JAVA
 
 # Commit Rule
 티어별로 dir 나누고 
