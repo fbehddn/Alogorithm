@@ -11,18 +11,19 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
         BigInteger big = new BigInteger("1");
+        int count = 0;
 
         for (int i = 1; i <= N; i++) {
             big = big.multiply(BigInteger.valueOf(i));
         }
 
         String str = big.toString();
-        char[] chaArr = new char[str.length()];
 
+        char[] chaArr = new char[str.length()];
         for (int i = 0; i < str.length(); i++) {
             chaArr[i] = str.charAt(i);
         }
-        int count = 0;
+
         for (int i = str.length() - 1; i >= 0; i--) {
             if(chaArr[i] =='0') count++;
             else break;
