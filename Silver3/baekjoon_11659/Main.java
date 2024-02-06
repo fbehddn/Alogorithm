@@ -1,33 +1,31 @@
 package Silver3.baekjoon_11659;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
+    public static void main(String[] args) throws IOException {
 
-        int[] num = new int[N+1];
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+
         int[] sum = new int[N+1];
-        sum[0] = 0;
+        st = new StringTokenizer(br.readLine());
 
-        /**
-         * 배열값 입력과 동시에 구간합 생성
-         */
         for (int i = 1; i <= N; i++) {
-            num[i] = sc.nextInt();
-            sum[i] = sum[i - 1] + num[i];
+            sum[i] = sum[i - 1] + Integer.parseInt(st.nextToken());
         }
 
-        /**
-         * 질의 범위 입력받음과 동시에 출력하기
-         */
-
-        for (int i = 0; i < M; i++) {
-            int start = sc.nextInt();
-            int end = sc.nextInt();
-            System.out.println(sum[end] - sum[start-1]);
+        for (int q = 0; q < M; q++) {
+            st = new StringTokenizer(br.readLine());
+            int i =  Integer.parseInt(st.nextToken());
+            int j =  Integer.parseInt(st.nextToken());
+            System.out.println(sum[j] - sum[i-1]);
         }
     }
 }
