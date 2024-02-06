@@ -8,33 +8,26 @@ public class Main {
         int N = sc.nextInt();
         int M = sc.nextInt();
 
-        int[] num = new int[N];
-        for (int i = 0; i < N; i++) {
+        int[] num = new int[N+1];
+        int[] sum = new int[N+1];
+        sum[0] = 0;
+
+        /**
+         * 배열값 입력과 동시에 구간합 생성
+         */
+        for (int i = 1; i <= N; i++) {
             num[i] = sc.nextInt();
+            sum[i] = sum[i - 1] + num[i];
         }
-        int[][] range = new int[M][2];
+
+        /**
+         * 질의 범위 입력받음과 동시에 출력하기
+         */
+
         for (int i = 0; i < M; i++) {
-            for (int j = 0; j < 2; j++) {
-                range[i][j] = sc.nextInt();
-            }
-        }
-
-        int[] result = new int[M];
-
-        int idx = 0;
-
-        for (int[] ints : range) {
-            int start = ints[0] - 1;
-            int end = ints[1] - 1;
-
-            for (int i = start; i <= end; i++) {
-                result[idx] += num[i];
-            }
-            idx++;
-        }
-
-        for (int i : result) {
-            System.out.println(i);
+            int start = sc.nextInt();
+            int end = sc.nextInt();
+            System.out.println(sum[end] - sum[start-1]);
         }
     }
 }
