@@ -13,7 +13,6 @@ public class Main {
         int m = Integer.parseInt(br.readLine());
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-
         int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
@@ -22,27 +21,19 @@ public class Main {
         Arrays.sort(arr);
 
         int sIndex = 0;
-        int eIndex = arr.length - 1;
+        int eIndex = n - 1;
         int count = 0;
 
-        int sum = 0;
-
         while (sIndex < eIndex) {
-            sum = arr[sIndex] + arr[eIndex];
 
-            if (sum == m) {
+            if (arr[sIndex] + arr[eIndex] == m) {
                 count++;
                 sIndex++;
                 eIndex--;
-                sum = arr[sIndex] + arr[eIndex];
-            } else if (sum < m) {
-                sum -= arr[sIndex];
+            } else if (arr[sIndex] + arr[eIndex] < m) {
                 sIndex++;
-                sum += arr[sIndex];
-            } else if (sum > m) {
-                sum -= arr[eIndex];
+            } else if (arr[sIndex] + arr[eIndex] > m) {
                 eIndex--;
-                sum += arr[eIndex];
             }
         }
         System.out.println(count);
