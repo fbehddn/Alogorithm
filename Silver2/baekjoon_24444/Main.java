@@ -9,7 +9,6 @@ public class Main {
     static boolean visited[];
     static ArrayList<Integer>[] A;
     static int result[];
-    static int cnt = 1;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,7 +19,7 @@ public class Main {
         int R = Integer.parseInt(st.nextToken());
 
         visited = new boolean[N+1];
-        result = new int[N];
+        result = new int[N+1];
         A = new ArrayList[N + 1];
 
         for (int i = 0; i <= N; i++) {
@@ -41,12 +40,16 @@ public class Main {
 
         bfs(R);
 
+        StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= N; i++) {
-            System.out.println(result[i] + "\n");
+            sb.append(result[i] + "\n");
         }
+
+        System.out.println(sb);
     }
 
     private static void bfs(int start) {
+        int cnt = 1;
         Queue<Integer> q = new LinkedList<>();
         q.add(start);
         visited[start] = true;
@@ -57,7 +60,7 @@ public class Main {
             for (int next : A[cur]) {
                 if (!visited[next]) {
                     visited[next] = true;
-                    result[next]++;
+                    result[next] = cnt++;
                     q.add(next);
                 }
             }
