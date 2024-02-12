@@ -1,33 +1,42 @@
 package Silver3.baekjoon_15649;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int[] arr;
     static boolean[] visited;
-    static int N; //정수 1 ~ N 까지
-    static int M; //자릿수
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    static int[] result;
+    static int N,M;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int N = sc.nextInt();
-        int M = sc.nextInt();
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < N; i++) {
-            arr[i] = i;
-        }
+        visited = new boolean[N + 1];
+        result = new int[M + 1];
 
-        nAndm(N);
+        dfs(0);
     }
 
-    private static void nAndm(int k) {
-
-        if (!visited[k]) {
-            visited[k] = true;
+    private static void dfs(int depth) {
+        if (depth == M) {
+            for (int i = 0; i < M; i++) {
+                System.out.print(result[i] + " ");
+            }
+            System.out.println();
+            return;
         }
-
-        for (int i = 0; i < k; i++) {
-
+        for (int i = 0; i < N; i++) {
+            if (!visited[i]) {
+                visited[i] = true;
+                result[depth] = i + 1;
+                dfs(depth + 1);
+                visited[i] = false;
+            }
         }
     }
 }
