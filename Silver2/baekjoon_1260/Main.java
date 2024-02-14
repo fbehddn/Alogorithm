@@ -25,11 +25,11 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         V = Integer.parseInt(st.nextToken());
 
-        visited = new boolean[1000];
-        A = new ArrayList[10000];
+        visited = new boolean[N+1];
+        A = new ArrayList[N+1];
         result = new ArrayList<>();
 
-        for (int i = 0; i < M+1; i++) {
+        for (int i = 0; i < N+1; i++) {
             A[i] = new ArrayList<>();
         }
 
