@@ -15,7 +15,10 @@ public class Main {
      */
     static ArrayList<Integer>[] A;
     static ArrayList<Integer> result;
-    static int cnt = 1;
+
+    /**
+     * BFS에 필요한 변수
+     */
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
