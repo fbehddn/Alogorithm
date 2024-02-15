@@ -3,22 +3,23 @@ package Silver2.baekjoon_1260;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     static int N,M,V;
-    static boolean[] visited;
+    static ArrayList<Integer>[] A;
+
     /**
      * DFS에 필요한 변수
      */
-    static ArrayList<Integer>[] A;
+    static boolean[] visited;
     static ArrayList<Integer> result;
 
     /**
      * BFS에 필요한 변수
      */
+    static boolean[] visited2;
+    static ArrayList<Integer> result2;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -29,8 +30,11 @@ public class Main {
         V = Integer.parseInt(st.nextToken());
 
         visited = new boolean[N+1];
+        visited2 = new boolean[N+1];
+
         A = new ArrayList[N+1];
         result = new ArrayList<>();
+        result2 = new ArrayList<>();
 
         for (int i = 0; i < N+1; i++) {
             A[i] = new ArrayList<>();
@@ -49,6 +53,7 @@ public class Main {
         }
 
         DFS(V);
+        BFS(V);
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < result.size(); i++) {
@@ -56,6 +61,31 @@ public class Main {
         }
 
         System.out.println(sb);
+
+        StringBuilder sb2 = new StringBuilder();
+        for (int i = 0; i < result2.size(); i++) {
+            sb2.append(result2.get(i) + " ");
+        }
+
+        System.out.println(sb2);
+    }
+
+    private static void BFS(int start) {
+        Queue<Integer> queue = new LinkedList<>();
+        queue.add(start);
+        visited2[start] = true;
+        result2.add(start);
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+
+            for (int next : A[cur]) {
+                if (!visited2[next]) {
+                    visited2[next] = true;
+                    result2.add(next);
+                    queue.add(next);
+                }
+            }
+        }
     }
 
     private static void DFS(int start) {
