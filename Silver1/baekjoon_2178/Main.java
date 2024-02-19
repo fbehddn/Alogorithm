@@ -31,20 +31,20 @@ public class Main {
         System.out.println(A[N - 1][M - 1]);
     }
 
-    private static void BFS(int i, int j) {
+    private static void BFS(int x, int y) {
         Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{i, j});
+        queue.offer(new int[]{x, y});
         while (!queue.isEmpty()) {
             int now[] = queue.poll();
-            visited[i][j] = true;
+            visited[x][y] = true;
             for (int k = 0; k < 4; k++) { // 상하좌우 탐색
-                int x = now[0] + dx[k];
-                int y = now[1] + dy[k];
-                if (x >= 0 && y >= 0 && x < N && y < M) {
-                    if (A[x][y] != 0 && !visited[x][y]) {
-                        visited[x][y] = true;
-                        A[x][y] = A[now[0]][now[1]] + 1;
-                        queue.add(new int[]{x, y});
+                int nextX = now[0] + dx[k];
+                int nextY = now[1] + dy[k];
+                if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < M) {
+                    if (A[nextX][nextY] != 0 && !visited[nextX][nextY]) {
+                        visited[nextX][nextY] = true;
+                        A[nextX][nextY] = A[now[0]][now[1]] + 1;
+                        queue.add(new int[]{nextX, nextY});
                     }
                 }
             }
