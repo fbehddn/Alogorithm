@@ -69,7 +69,8 @@ public class Main {
                 int nextY = now[1] + dy[i];
                 if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < N) {
                     if (arr[nextX][nextY] != 0 && !visited[nextX][nextY]) {
-                        visited[nextX][nextY] = true;
+//                        visited[nextX][nextY] = true;
+                        arr[nextX][nextY] = 0;
                         count1++;
                         count++;
                         q.add(new int[]{nextX, nextY});
