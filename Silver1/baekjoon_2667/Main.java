@@ -35,7 +35,10 @@ public class Main {
         int size = N * N;
         int sum = 0;
         /**
-         * 총 1의 개수 찾기
+         * 총 1의 개수 찾기 -> 0 에서 다음으로 탐색이 안됨
+         * 방문은 노드값 1을 0으로 바꿈 -> 0 에서 다음으로 탐색이 안됨
+         *
+         *
          */
 
         int numbersOfOne = 0;
