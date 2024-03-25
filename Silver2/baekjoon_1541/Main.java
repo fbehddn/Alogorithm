@@ -5,25 +5,31 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    static int sum = 0;
+    static int result = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str = br.readLine();
-        /**
-         * - 부터 그 다음 - 전까지 묶기
-         */
+        String line = br.readLine();
+        String[] str = line.split("-");
 
-        String[] strArr = str.split("-");
-
-        sum += Integer.parseInt(strArr[0]);
-        for (int i = 1; i < strArr.length; i++) {
-            fuc(strArr[i]);
+        for (int i = 0; i < str.length; i++) {
+            if (i == 0) {
+                result += myFunc(str[i]);
+            } else {
+                int sum = myFunc(str[i]);
+                result -= sum;
+            }
         }
 
-        System.out.println(sum);
+        System.out.println(result);
     }
 
-    private static void fuc(String temp) {
-        sum -= Integer.parseInt(temp);
+    private static int myFunc(String str) {
+        int sum = 0;
+        String[] temp = str.split("\\+");
+        for (String s : temp) {
+            sum += Integer.parseInt(s);
+        }
+
+        return sum;
     }
 }
