@@ -1,39 +1,47 @@
 package Sliver4;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Integer> result = new ArrayList<>();
-        int N = sc.nextInt();
-        int[] n = new int[N];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-        for (int i = 0; i < N; i++) {
-            n[i] = sc.nextInt();
-        }
-
-        int M = sc.nextInt();
-        int[] m = new int[M];
-        for (int i = 0; i < M; i++) {
-            m[i] = sc.nextInt();
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
+        st = new StringTokenizer(br.readLine(), " ");
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < M; j++) {
-                if(n[j] == m[i]) {
-                    result.add(1);
-                }
-            }
-            if(result.size() == i) result.add(0);
+        Arrays.sort(arr);
+        int M = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine(), " ");
+        while (M-- > 0) {
+            int tar = Integer.parseInt(st.nextToken());
+            sb.append(binarySearch(arr, tar, 0, N - 1)).append("\n");
         }
-        for (Integer integer : result) {
-            System.out.println(integer);
-        }
+
+        System.out.println(sb);
     }
-    /**
-     * 2 5 7 8 9
-     * 1 3 5 7 9
-     */
+
+    private static int binarySearch(int[] arr, int target, int low, int high) {
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (target == arr[mid]) {
+                return 1;
+            } else if (target < arr[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return 0;
+    }
 }
