@@ -8,24 +8,11 @@ import java.util.StringTokenizer;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        int N1 = Integer.parseInt(st.nextToken()); //432
-        int N2 = Integer.parseInt(st.nextToken());
+        int N1 = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
+        int N2 = Integer.parseInt(new StringBuilder(st.nextToken()).reverse().toString());
 
-        String str = "";
-        String str2 = "";
-
-        for (int i = 0; i < 3; i++) {
-            str += N1 % 10;
-            N1 /= 10;
-
-            str2 += N2 % 10;
-            N2 /= 10;
-        }
-
-        if(Integer.parseInt(str) > Integer.parseInt(str2)){
-            System.out.println(Integer.parseInt(str));
-        } else System.out.println(Integer.parseInt(str2));
+        System.out.println(N1 > N2 ? N1 : N2);
     }
 }
