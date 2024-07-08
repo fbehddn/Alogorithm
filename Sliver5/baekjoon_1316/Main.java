@@ -7,28 +7,21 @@ import java.io.InputStreamReader;
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         int N = Integer.parseInt(br.readLine());
-
-        int count =0;
+        int count = N;
 
         for (int i = 0; i < N; i++) {
+            boolean[] arr = new boolean[26];
             String str = br.readLine();
-            char[] ch = str.toCharArray();
-            for (int j = 0; j<str.length(); j++) {
-                int temp = count;
-                for (int k = j + 2; k < str.length(); k++) {
-                    if(ch[j] == ch[k]) {
-                        count++;
-                        break;
-                    }
+            for (int j = 0; j < str.length(); j++) {
+                if (!arr[str.charAt(j) - 'a']) {
+                    arr[str.charAt(j) - 'a'] = true;
+                } else if (j > 0 && str.charAt(j) != str.charAt(j - 1)) {
+                    count--;
+                    break;
                 }
-                if(temp<count) break;
-
             }
         }
-
-        System.out.println(N-count);
-
+        System.out.println(count);
     }
 }
