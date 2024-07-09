@@ -18,16 +18,10 @@ public class Main {
             int y = Integer.parseInt(st.nextToken());
             for (int j = x; j < x + 10; j++) {
                 for (int k = y; k < y + 10; k++) {
-                    arr[j][k] = true;
-                    result++;
-                }
-            }
-        }
-
-        for (int x = 0; x <= 100; x++) {
-            for (int y = 0; y <= 100; y++) {
-                if (arr[x][y]) {
-                    result++;
+                    if (!arr[j][k]) {
+                        arr[j][k] = true;
+                        result++;
+                    }
                 }
             }
         }
