@@ -10,13 +10,13 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        int count = 1;
+        int cnt = 1;
         int num = 666;
 
-        while (count != N) {
+        while (cnt != N) {
             num++;
             if (String.valueOf(num).contains("666")) {
-                count++;
+                cnt++;
             }
         }
         System.out.println(num);
