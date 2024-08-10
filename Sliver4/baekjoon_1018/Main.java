@@ -10,25 +10,28 @@ import java.util.StringTokenizer;
  * 2. 1에서의 각 경우마다 [0][0] 이 W or B 인지 따지고 더 작은값을 구한 후 각 경우의수마다 최솟값 판별
  */
 public class Main {
-    static char[][] arr;
+    static int N;
+    static int M;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
-        int N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
+        N = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
 
-        arr = new char[N][M];
+        String[] arr = new String[N];
 
+        // 초기 배열 입력 및 초기화
         for (int i = 0; i < N; i++) {
-            String str = br.readLine();
-            for (int j = 0; j < M; j++) {
-                arr[i][j] = str.charAt(j);
-            }
+            arr[i] = br.readLine();
         }
+        System.out.println(count(arr));
+        br.close();
+    }
 
-        int min = Integer.MAX_VALUE;
+    private static int count(String[] arr) {
+        int result = Integer.MAX_VALUE;
 
         for (int i = 0; i < N - 7; i++) {
             for (int j = 0; j < M - 7; j++) {
@@ -38,17 +41,20 @@ public class Main {
                     int count = 0;
                     for (int n = i; n < i + 8; n++) {
                         for (int m = j; m < j + 8; m++) {
-                            if (arr[n][m] != start) {
+                            if (start != arr[n].charAt(m)) {
                                 count++;
                             }
+                            start = start == 'W' ? 'B' : 'W';
                         }
+                        start = start == 'W' ? 'B' : 'W';
+                    }
+                    result = Math.min(result, count);
+                    if (result == 0) {
+                        return 0;
                     }
                 }
             }
         }
+        return result;
     }
-
-
-        System.out.println(count);
-}
 }
