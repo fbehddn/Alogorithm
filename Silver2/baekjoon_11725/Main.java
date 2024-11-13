@@ -10,22 +10,22 @@ import java.util.StringTokenizer;
 
 public class Main {
     static ArrayList<Integer>[] link;
-    static int[] result;
-    static int N;
+    static int[] parent;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        result = new int[N + 1];
+        int N = Integer.parseInt(br.readLine());
+        parent = new int[N + 1];
         link = new ArrayList[N + 1];
+        visited = new boolean[N + 1];
 
         for (int i = 0; i < link.length; i++) {
             link[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < N - 1; i++) {
-            st = new StringTokenizer(br.readLine());
+            StringTokenizer st = new StringTokenizer(br.readLine());
             int node1 = Integer.parseInt(st.nextToken());
             int node2 = Integer.parseInt(st.nextToken());
             link[node1].add(node2);
@@ -34,22 +34,21 @@ public class Main {
 
         bfs(1);
 
-        for (int i = 1; i <= N - 1; i++) {
-            System.out.println(result[i]);
+        for (int i = 2; i <= N; i++) {
+            System.out.println(parent[i]);
         }
     }
 
     private static void bfs(int start) {
         Queue<Integer> queue = new LinkedList<>();
-        int findNodeNumber = 2;
-        while (findNodeNumber < N + 1) {
-            queue.add(start);
+        visited[start] = true;
+        queue.add(start);
+        while (!queue.isEmpty()) {
             int current = queue.poll();
             for (Integer node : link[current]) {
-                if (node == findNodeNumber) {
-                    result[findNodeNumber - 1] = current;
-                    findNodeNumber++;
-                } else {
+                if (!visited[node]) {
+                    visited[node] = true;
+                    parent[node] = current;
                     queue.add(node);
                 }
             }
