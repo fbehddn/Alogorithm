@@ -1,4 +1,4 @@
-package Bronze1.baekoon_1157;
+package Bronze1.baekjoon_1157;
 
 import java.io.BufferedReader;
 import java.io.IOException;

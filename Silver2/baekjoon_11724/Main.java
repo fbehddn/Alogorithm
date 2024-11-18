@@ -1,4 +1,4 @@
-package Silver2.beakjoon_11724;
+package Silver2.baekjoon_11724;
 
 import java.io.BufferedReader;
 import java.io.IOException;
