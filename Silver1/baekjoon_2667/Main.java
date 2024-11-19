@@ -9,7 +9,6 @@ import java.util.List;
 
 public class Main {
     static int[][] map;
-    static boolean[][] visited;
     static int[] dx = {0, 1, 0, -1};
     static int[] dy = {1, 0, -1, 0};
     static int N, eachHome;
@@ -19,10 +18,8 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
 
-        map = new int[N + 1][N + 1];
-        visited = new boolean[N + 1][N + 1];
+        map = new int[N][N];
         houseCount = new ArrayList<>();
-        eachHome = 1;
 
         // 지도 초기화
         for (int i = 0; i < N; i++) {
@@ -34,7 +31,7 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (map[i][j] == 1 && !visited[i][j]) {
+                if (map[i][j] == 1) {
                     eachHome = 1;
                     dfs(i, j);
                     houseCount.add(eachHome);
@@ -51,12 +48,13 @@ public class Main {
     }
 
     private static void dfs(int i, int j) {
-        visited[i][j] = true;
+        // 방문했음을 표시하기 위해 1에서 0으로 바꿈
+        map[i][j] = 0;
         for (int k = 0; k < 4; k++) {
             int nextX = i + dx[k];
             int nextY = j + dy[k];
 
-            if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < N && !visited[nextX][nextY] && map[nextX][nextY]==1) {
+            if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < N && map[nextX][nextY] == 1) {
                 eachHome++;
                 dfs(nextX, nextY);
             }
