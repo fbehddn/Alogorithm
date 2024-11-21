@@ -8,44 +8,44 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
+    static int map[][];
     static int[] dx = {0, 1, 0, -1};
-    static int[] dy = {1,0,-1,0};
+    static int[] dy = {1, 0, -1, 0};
     static boolean[][] visited;
-    static int[][] A;
-    static int N,M;
+    static int N, M;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        N = Integer.parseInt(st.nextToken());
-        M = Integer.parseInt(st.nextToken());
-        A = new int[N][M];
+
+        N = Integer.parseInt(st.nextToken()); // 가로 길이
+        M = Integer.parseInt(st.nextToken()); // 세로 길이
+        map = new int[N][M];
         visited = new boolean[N][M];
+
         for (int i = 0; i < N; i++) {
-            st = new StringTokenizer(br.readLine());
-            String line = st.nextToken();
+            String str = br.readLine();
             for (int j = 0; j < M; j++) {
-                A[i][j] = Integer.parseInt(line.substring(j, j + 1));
+                map[i][j] = str.charAt(j) - '0';
             }
         }
-        BFS(0, 0);
-        System.out.println(A[N - 1][M - 1]);
+        bfs(0, 0);
+        System.out.println(map[N - 1][M - 1]);
     }
 
-    private static void BFS(int x, int y) {
+    private static void bfs(int x, int y) {
         Queue<int[]> queue = new LinkedList<>();
-        queue.offer(new int[]{x, y});
+        queue.add(new int[]{x, y});
+
         while (!queue.isEmpty()) {
-            int now[] = queue.poll();
-            visited[x][y] = true;
-            for (int k = 0; k < 4; k++) { // 상하좌우 탐색
-                int nextX = now[0] + dx[k];
-                int nextY = now[1] + dy[k];
-                if (nextX >= 0 && nextY >= 0 && nextX < N && nextY < M) {
-                    if (A[nextX][nextY] != 0 && !visited[nextX][nextY]) {
-                        visited[nextX][nextY] = true;
-                        A[nextX][nextY] = A[now[0]][now[1]] + 1;
-                        queue.add(new int[]{nextX, nextY});
-                    }
+            int[] current = queue.poll();
+            for (int i = 0; i < 4; i++) {
+                int nx = current[0] + dx[i];
+                int ny = current[1] + dy[i];
+                if(nx>=0 && ny >=0 && nx < N && ny < M && visited[nx][ny] == false && map[nx][ny] == 1) {
+                    queue.add(new int[]{nx, ny});
+                    visited[nx][ny] = true;
+                    map[nx][ny] = map[current[0]][current[1]] + 1;
                 }
             }
         }
