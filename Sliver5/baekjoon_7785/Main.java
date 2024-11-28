@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        HashMap<String, String> log = new HashMap<>();
+        HashSet<String> log = new HashSet<>();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         int N = Integer.parseInt(br.readLine());
@@ -15,15 +15,14 @@ public class Main {
 
         for (int i = 0; i < N; i++) {
             st = new StringTokenizer(br.readLine());
-            log.put(st.nextToken(), st.nextToken());
+            String name = st.nextToken();
+
+            if (log.contains(name)) log.remove(name);
+            else log.add(name);
+
         }
 
-        ArrayList<String> result = new ArrayList<>();
-        for (String s : log.keySet()) {
-            if (log.get(s).equals("enter")) {
-                result.add(s);
-            }
-        }
+        ArrayList<String> result = new ArrayList<>(log);
         Collections.sort(result, Collections.reverseOrder());
 
         for (String s : result) {
