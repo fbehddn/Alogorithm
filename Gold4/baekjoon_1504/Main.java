@@ -4,12 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.PriorityQueue;
 import java.util.StringTokenizer;
 
 public class Main {
     static int N, E;
     static ArrayList<Node>[] graph;
+    static final int INF = 200_000_000;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -37,33 +39,18 @@ public class Main {
         int v1 = Integer.parseInt(st.nextToken());
         int v2 = Integer.parseInt(st.nextToken());
 
-        int from1ToV1 = dijkstra(1, v1);
-        int fromV1ToV2 = dijkstra(v1, v2);
-        int fromV2ToN = dijkstra(v2, N);
+        int route1 = dijkstra(1, v1) + dijkstra(v1, v2) + dijkstra(v2, N);
+        int route2 = dijkstra(1, v2) + dijkstra(v2, v1) + dijkstra(v1, N);
 
-        int from1ToV2 = dijkstra(1, v2);
-        int fromV2ToV1 = dijkstra(v2, v1);
-        int fromV1ToN = dijkstra(v1, N);
+        int minimumDistance = (route1 >= INF && route2 >= INF) ? -1 : Math.min(route1, route2);
 
-        int route1 = (from1ToV1 == Integer.MAX_VALUE || fromV1ToV2 == Integer.MAX_VALUE || fromV2ToN == Integer.MAX_VALUE)
-                ? Integer.MAX_VALUE
-                : from1ToV1 + fromV1ToV2 + fromV2ToN;
-
-        int route2 = (from1ToV2 == Integer.MAX_VALUE || fromV2ToV1 == Integer.MAX_VALUE || fromV1ToN == Integer.MAX_VALUE)
-                ? Integer.MAX_VALUE
-                : from1ToV2 + fromV2ToV1 + fromV1ToN;
-
-        int minimumDistance = Math.min(route1, route2);
-
-        System.out.println(minimumDistance == Integer.MAX_VALUE ? -1 : minimumDistance);
+        System.out.println(minimumDistance);
     }
 
     static int dijkstra(int start, int end) {
         PriorityQueue<Node> queue = new PriorityQueue<>();
         int[] d = new int[N + 1];
-        for (int i = 1; i <= N; i++) {
-            d[i] = Integer.MAX_VALUE;
-        }
+        Arrays.fill(d, INF);
         queue.add(new Node(start, 0));
         d[start] = 0;
 
@@ -81,7 +68,6 @@ public class Main {
                 }
             }
         }
-
         return d[end];
     }
 
