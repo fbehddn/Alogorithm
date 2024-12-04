@@ -43,6 +43,7 @@ public class Main {
     private static int bfs(int curX, int curY, int size) {
         Queue<int[]> queue = new LinkedList<>();
         queue.add(new int[]{curX, curY});
+        //처음 노드를 방문체크 하지 않으면, 시작점과 목표지점이 동일한 경우 추후 방문시 값을 업데이트하는 오류가 생김.
         visited[curX][curY] = true;
 
         while (!queue.isEmpty()) {
