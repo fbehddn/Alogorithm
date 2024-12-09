@@ -67,6 +67,19 @@
 </details>
 
 <details>
+<summary>이분탐색</summary>
+<ul>
+<li>[ ] 1920 수 찾기</li>
+<li>[ ] 10816 숫자카드 2</li>
+<li>[ ] 1654 랜선 자르기</li>
+<li>[ ] 2805 나무 자르기</li>
+<li>[ ] 2110 공유기 설치</li>
+<li>[ ] 1300 K번째 수</li>
+<li>[ ] 12015 가장 긴 증가하는 부분 수열 2</li>
+</ul>
+</details>
+
+<details>
 <summary>그래프와 순회</summary>
 <ul>
 <li>[x] 24479 알고리즘 수업 - 깊이 우선 탐색 1</li>
