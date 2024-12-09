@@ -27,7 +27,7 @@ public class Main {
 
         for (int i = 1; i < M + 1; i++) {
             String pocket = br.readLine();
-            if (checkNumber(pocket)) {
+            if (Character.isDigit(pocket.charAt(0))) { //문자 + 숫자가 섞여있지 않으므로 가능
                 sb.append(pocketArr[Integer.parseInt(pocket)]);
             } else {
                 sb.append(pocketMap.get(pocket));
@@ -35,14 +35,5 @@ public class Main {
             sb.append("\n");
         }
         System.out.println(sb);
-    }
-
-    private static boolean checkNumber(String pocket) {
-        try {
-            Integer.parseInt(pocket);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
     }
 }
