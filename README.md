@@ -1,4 +1,4 @@
-## COMMIT CONVENTION
+ ## COMMIT CONVENTION
 ### [문제번호 -> 난이도] 문제이름(문제유형)
 
 <br>
@@ -69,7 +69,7 @@
 <details>
 <summary>이분탐색</summary>
 <ul>
-<li>[ ] 1920 수 찾기</li>
+<li>[x] 1920 수 찾기</li>
 <li>[ ] 10816 숫자카드 2</li>
 <li>[ ] 1654 랜선 자르기</li>
 <li>[ ] 2805 나무 자르기</li>
