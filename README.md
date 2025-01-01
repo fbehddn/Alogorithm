@@ -1,7 +1,6 @@
  ## COMMIT CONVENTION
 ### [문제번호 -> 난이도] 문제이름(문제유형)
 
-<br>
 
 ## 🧮Problem Solving with Baekjoon🧮
 
