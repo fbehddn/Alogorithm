@@ -9,25 +9,26 @@ public class Main {
 	static int[] A;
 	static int K;
 	static int[] temp;
+	static int cnt = 0;
+	static int result = -1;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
-		A = new int[Integer.parseInt(st.nextToken())];
+		int size = Integer.parseInt(st.nextToken());
+		A = new int[size];
 		K = Integer.parseInt(st.nextToken());
-		temp = new int[A.length];
+		temp = new int[size];
 
 		st = new StringTokenizer(br.readLine());
-		for (int i = 0; i < A.length; i++) {
+		for (int i = 0; i < size; i++) {
 			A[i] = Integer.parseInt(st.nextToken());
 		}
 
 		mergeSort(A, 0, A.length - 1);
 
-		for (int i : A) {
-			System.out.print(i + " ");
-		}
+		System.out.println(result);
 	}
 
 	private static void mergeSort(int[] a, int start, int end) {
@@ -58,8 +59,16 @@ public class Main {
 			temp[t++] = a[j++];
 		}
 
-		for (int k = 0; k < t; k++) {
-			a[start + k] = temp[k];
+		t=0;
+		i = start;
+
+		while(i <= end) {
+			cnt++;
+			if (cnt == K) {
+				result = temp[t];
+				break;
+			}
+			a[i++] = temp[t++];
 		}
 	}
 }
