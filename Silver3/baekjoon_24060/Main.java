@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int[] A;
 	static int K;
 	static int[] temp;
 	static int cnt = 0;
@@ -17,16 +16,16 @@ public class Main {
 		StringTokenizer st = new StringTokenizer(br.readLine());
 
 		int size = Integer.parseInt(st.nextToken());
-		A = new int[size];
+		int[] arr = new int[size];
 		K = Integer.parseInt(st.nextToken());
 		temp = new int[size];
 
 		st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < size; i++) {
-			A[i] = Integer.parseInt(st.nextToken());
+			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		mergeSort(A, 0, A.length - 1);
+		mergeSort(arr, 0, arr.length - 1);
 
 		System.out.println(result);
 	}
@@ -36,7 +35,7 @@ public class Main {
 			int mid = (start + end) / 2;
 			mergeSort(a, start, mid);
 			mergeSort(a, mid + 1, end);
-			merge(A, start, mid, end);
+			merge(a, start, mid, end);
 		}
 	}
 
