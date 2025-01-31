@@ -70,7 +70,7 @@ public class Main {
 			arr[i++] = temp[k++];
 			if (cnt == K) {
 				for (int q = 0; q < arr.length; q++) {
-					result[q] = arr[q];
+					System.arraycopy(arr, 0, result, 0, arr.length);
 				}
 				break;
 			}
