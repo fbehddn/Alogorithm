@@ -1,5 +1,6 @@
 package Sliver5.baekjoon_10815;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,50 +8,51 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+	static int[] cards;
 
-        int N = Integer.parseInt(br.readLine());
-        st = new StringTokenizer(br.readLine());
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		StringTokenizer st;
 
-        int[] cards = new int[N];
 
-        for (int i = 0; i < N; i++) {
-            cards[i] = Integer.parseInt(st.nextToken());
-        }
+		int N = Integer.parseInt(br.readLine());
+		cards = new int[N];
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < cards.length; i++) {
+			cards[i] = Integer.parseInt(st.nextToken());
+		}
 
-        Arrays.sort(cards);
-        int M = Integer.parseInt(br.readLine());
 
-        st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
+		int M = Integer.parseInt(br.readLine());
+		int[] numbers = new int[M];
+		st = new StringTokenizer(br.readLine());
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = Integer.parseInt(st.nextToken());
+		}
 
-        for (int i = 0; i < M; i++) {
-            int temp = Integer.parseInt(st.nextToken());
-            sb.append(binarySearch(cards, N, temp) + " ");
-        }
-        System.out.println(sb);
+		Arrays.sort(cards);
 
-    }
+		for (int i = 0; i < numbers.length; i++) {
+			sb.append(binarySearch(numbers[i])).append(" ");
+		}
 
-    private static int binarySearch(int[] cards, int N, int search) {
-        int first = 0;
-        int last = N-1;
-        int mid = 0;
+		System.out.println(sb);
+	}
 
-        while (first <= last) {
-            mid = (first + last) / 2;
+	private static int binarySearch(int target) {
+		int start = 0, end = cards.length - 1;
 
-            if (cards[mid] == search) {
-                return 1;
-            }
-            if (cards[mid] < search) {
-                first = mid + 1;
-            } else {
-                last = mid - 1;
-            }
-        }
-        return 0;
-    }
+		while (start <= end) {
+			int mid = (start + end) / 2;
+			if (target == cards[mid]) {
+				return 1;
+			} else if (target < cards[mid]) {
+				end = mid - 1;
+			} else if (target > cards[mid]) {
+				start = mid + 1;
+			}
+		}
+		return 0;
+	}
 }
