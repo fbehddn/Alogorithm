@@ -5,24 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
-/**
- * 또한 현재 내 위치에서 6칸을 실행하여, 사다리이고 뱀이 아니면 해당 칸으로 이동하고, 그렇지 않으면 6칸을 이동한다.(100 이하까지)
- */
 public class Main {
 	static Map<Integer, Integer> item = new HashMap<>();
-	static boolean[] visited;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 
-		visited = new boolean[101];
 		st = new StringTokenizer(br.readLine());
-		int ledder = Integer.parseInt(st.nextToken());
+		int ladder = Integer.parseInt(st.nextToken());
 		int snake = Integer.parseInt(st.nextToken());
-		for (int i = 0; i < ledder + snake; i++) {
+
+		for (int i = 0; i < ladder + snake; i++) {
 			st = new StringTokenizer(br.readLine());
-			item.put(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
+			int from = Integer.parseInt(st.nextToken());
+			int to = Integer.parseInt(st.nextToken());
+			item.put(from, to);
 		}
 
 		int result = bfs(1);
@@ -31,6 +29,8 @@ public class Main {
 
 	private static int bfs(int start) {
 		Queue<Integer> queue = new LinkedList<>();
+		boolean[] visited = new boolean[101];
+
 		queue.add(start);
 		visited[start] = true;
 
@@ -40,7 +40,6 @@ public class Main {
 			int size = queue.size();
 			for (int i = 0; i < size; i++) {
 				int cur = queue.poll();
-
 				if (cur == 100) return count;
 
 				for (int dice = 1; dice <= 6; dice++) {
