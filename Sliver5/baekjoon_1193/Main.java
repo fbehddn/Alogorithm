@@ -7,28 +7,23 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		int x = sc.nextInt();
 		int floor = 1;
-		int temp = 1;
-		while (x > 0) {
-			if (x - temp > 0) {
-				x -= temp;
-				temp++;
-				floor++;
-			}else break;
+
+		while (x - floor > 0) {
+			x -= floor;
+			floor++;
 		}
 
 		int sum = floor + 1;
+
+		int son, mother;
+
 		if (floor % 2 == 0) {
-			int mother = floor+1;
-			for (int i = 0; i < x; i++) {
-				mother--;
-			}
-			System.out.println(sum - mother + "/" + mother);
+			son = x;
+			mother = sum - x;
 		} else {
-			int mother = 0;
-			for (int i = 0; i < x; i++) {
-				mother++;
-			}
-			System.out.println(sum - mother + "/" + mother);
+			son = sum - x;
+			mother = x;
 		}
+		System.out.println(son+"/"+mother);
 	}
 }
