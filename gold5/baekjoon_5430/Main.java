@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder result = new StringBuilder();
+		StringTokenizer st = new StringTokenizer(br.readLine());
 		int T = Integer.parseInt(br.readLine());
 
 		String str;
@@ -26,37 +27,54 @@ public class Main {
 			String replace = original.replace("[", "");
 			String res = replace.replace("]", "");
 			String[] strs = res.split(",");
+
 			for (int i = 0; i < size; i++) {
 				list.add(Integer.parseInt(strs[i]));
 			}
 
+			boolean direction = true; // true -> 머리 가리키고 있음
+			StringBuilder sb = new StringBuilder();
+			sb.append('[');
 			for (int i = 0; i < str.length(); i++) {
 				switch (str.charAt(i)) {
 					case 'R': {
-						Collections.reverse(list);
+						if(direction) {
+							direction = false;
+						}else{
+							direction = true;
+						}
 						break;
 					}
 					case 'D': {
 						if (list.isEmpty()) {
-							result.append("error").append('\n');
+							sb = new StringBuilder();
+							sb.append("error");
+							break;
+						} else {
+							if (direction) {
+								list.remove(0);
+								break;
+							} else {
+								list.remove(list.size() - 1);
+							}
 							break;
 						}
-						list.remove(0);
-						break;
 					}
 				}
 			}
-
-			if (!list.isEmpty()) {
-				result.append('[');
-
-				for (int i = 0; i < list.size(); i++) {
-					result.append(list.get(i));
-					if (i != list.size() - 1) result.append(',');
+			for(int i=0; i<list.size(); i++){
+				if(direction){
+					sb.append(list.get(i));
+				}else
+					sb.append(list.get(list.size() - i - 1));
+				if(i != list.size() - 1){
+					sb.append(",");
 				}
-
-				result.append(']').append('\n');
 			}
+			if (!sb.toString().equals("error")) {
+				sb.append(']');
+			}
+			result.append(sb).append("\n");
 		}
 		System.out.println(result);
 	}
