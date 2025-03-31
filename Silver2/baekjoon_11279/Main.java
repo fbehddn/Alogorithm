@@ -1,30 +1,32 @@
 package Silver2.baekjoon_11279;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
         StringBuilder sb = new StringBuilder();
-        PriorityQueue<Integer> queue = new PriorityQueue<>(Collections.reverseOrder());
 
-        int N = sc.nextInt();
-
+        int temp;
         for (int i = 0; i < N; i++) {
-            int num = sc.nextInt();
-
-            if (num == 0) {
-                if (queue.size() == 0) {
-                    sb.append(num).append("\n");
+            temp = Integer.parseInt(br.readLine());
+            if (temp == 0) {
+                if (pq.size() == 0) {
+                    sb.append(0).append("\n");
                 } else {
-                    sb.append(queue.poll()).append("\n");
+                    sb.append(pq.poll()).append("\n");
                 }
-            }else{
-                queue.add(num);
+            } else {
+                pq.add(temp);
             }
         }
+
         System.out.println(sb);
     }
 }
