@@ -18,29 +18,17 @@ public class Main {
 		}
 
 		for (int i = 2; i <= N; i++) {
-			if (isSosu(i)) {
-				for (int j = 1; j <= N; j++) {
-					int num = i * j;
-					if (num < arr.length && arr[num] != 0) {
-						arr[num] = 0;
-						K--;
-						if (K == 0) {
-							System.out.println(num);
-							return;
-						}
+			if (arr[i] == 0) continue;
+			for (int j = i; j <= N; j += i) {
+				if (arr[j] != 0) {
+					arr[j] = 0;
+					K--;
+					if (K == 0) {
+						System.out.println(j);
+						return;
 					}
 				}
 			}
 		}
-	}
-
-	private static boolean isSosu(int num) {
-		if (num == 0) return false;
-
-		int count = 0;
-		for (int i = 1; i <= num; i++) {
-			if (num % i == 0) count++;
-		}
-		return count == 2;
 	}
 }
