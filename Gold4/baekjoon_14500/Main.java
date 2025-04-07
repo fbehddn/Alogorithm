@@ -30,16 +30,16 @@ public class Main {
 		}
 		for (int i = 0; i < r; i++) {
 			for (int j = 0; j < c; j++) {
-				int sum = blocks[i][j];
 				visited[i][j] = true;
-				dfs(i, j, block - 1, sum);
+				dfs(i, j, blocks[i][j], 1);
+				visited[i][j] = false;
 			}
 		}
 		System.out.println(result);
 	}
 
-	private static void dfs(int row, int col, int block, int sum) {
-		if (block == 0) {
+	private static void dfs(int row, int col, int sum, int depth) {
+		if (depth == 4) {
 			result = Math.max(result, sum);
 			return;
 		}
@@ -49,12 +49,13 @@ public class Main {
 			int newCol = col + dy[i];
 			if (newRow >= 0 && newRow < r && newCol >= 0 && newCol < c) {
 				if (!visited[newRow][newCol]) {
-					sum += blocks[newRow][newCol];
+					if (depth == 2) {
+						visited[newRow][newCol] = true;
+						dfs(row, col, sum + blocks[newRow][newCol], depth + 1);
+						visited[newRow][newCol] = false;
+					}
 					visited[newRow][newCol] = true;
-					block--;
-					dfs(newRow, newCol, block, sum);
-					block++;
-					sum -= blocks[newRow][newCol];
+					dfs(newRow, newCol, sum + blocks[newRow][newCol], depth + 1);
 					visited[newRow][newCol] = false;
 				}
 			}
