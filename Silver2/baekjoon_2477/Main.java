@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int maxRow, maxCol, maxRowIdx, maxColIdx;
+	static int maxWidth, maxHeight, maxWidthIdx, maxHeightIdx;
 	static int[] length;
 
 	public static void main(String[] args) throws IOException {
@@ -15,8 +15,8 @@ public class Main {
 
 		length = new int[6];
 		int countPerSize = Integer.parseInt(br.readLine());
-		maxRow = 0;
-		maxCol = 0;
+		maxWidth = 0;
+		maxHeight = 0;
 
 		for (int i = 0; i < 6; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -24,20 +24,20 @@ public class Main {
 			int len = Integer.parseInt(st.nextToken());
 			if (direction == 1 || direction == 2) {
 				length[i] = len;
-				if (len > maxRow) {
-					maxRow = len;
-					maxRowIdx = i;
+				if (len > maxWidth) {
+					maxWidth = len;
+					maxWidthIdx = i;
 				}
 			} else if (direction == 3 || direction == 4) {
 				length[i] = len;
-				if (len > maxCol) {
-					maxCol = len;
-					maxColIdx = i;
+				if (len > maxHeight) {
+					maxHeight = len;
+					maxHeightIdx = i;
 				}
 			}
 		}
-		int total = getTotalSize(maxRowIdx, maxColIdx);
-		int blank = getBlankSize(maxRowIdx, maxColIdx);
+		int total = getTotalSize(maxWidthIdx, maxHeightIdx);
+		int blank = getBlankSize(maxWidthIdx, maxHeightIdx);
 		int result = (total - blank) * countPerSize;
 
 		System.out.println(result);
@@ -48,32 +48,29 @@ public class Main {
 	}
 
 	private static int getBlankSize(int maxRowIdx, int maxColIdx) {
-		int colA = 0;
-		int colB = 0;
-		int rowA = 0;
-		int rowB = 0;
+		int heightA, heightB, widthA, widthB;
 
 		if (maxRowIdx == 0) {
-			colA = length[1];
-			colB = length[length.length - 1];
+			heightA = length[1];
+			heightB = length[length.length - 1];
 		} else if (maxRowIdx == length.length - 1) {
-			colA = length[length.length - 2];
-			colB = length[0];
+			heightA = length[length.length - 2];
+			heightB = length[0];
 		} else {
-			colA = length[maxRowIdx - 1];
-			colB = length[maxRowIdx + 1];
+			heightA = length[maxRowIdx - 1];
+			heightB = length[maxRowIdx + 1];
 		}
 		if (maxColIdx == 0) {
-			rowA = length[1];
-			rowB = length[length.length - 1];
+			widthA = length[1];
+			widthB = length[length.length - 1];
 		} else if (maxColIdx == length.length - 1) {
-			rowA = length[length.length - 2];
-			rowB = length[0];
+			widthA = length[length.length - 2];
+			widthB = length[0];
 		} else {
-			rowA = length[maxColIdx - 1];
-			rowB = length[maxColIdx + 1];
+			widthA = length[maxColIdx - 1];
+			widthB = length[maxColIdx + 1];
 		}
 
-		return Math.abs(colA - colB) * Math.abs(rowA - rowB);
+		return Math.abs(heightA - heightB) * Math.abs(widthA - widthB);
 	}
 }
