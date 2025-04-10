@@ -3,18 +3,20 @@ package Sliver4.baekjoon_2578;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 	static int[][] chulsoo;
-	static int[][] repoter;
+	static Queue<Integer> queue;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 
 		chulsoo = new int[5][5];
-		repoter = new int[5][5];
+		queue = new LinkedList<>();
 
 		for (int i = 0; i < 5; i++) {
 			st = new StringTokenizer(br.readLine());
@@ -25,19 +27,16 @@ public class Main {
 		for (int i = 0; i < 5; i++) {
 			st = new StringTokenizer(br.readLine());
 			for (int j = 0; j < 5; j++) {
-				repoter[i][j] = Integer.parseInt(st.nextToken());
+				queue.add(Integer.parseInt(st.nextToken()));
 			}
 		}
 		int result = 0;
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				result++;
-				int number = repoter[i][j];
-				findChulsoo(number);
-				if (bingo()){
-					System.out.println(result);
-					return;
-				};
+		while (!queue.isEmpty()) {
+			result++;
+			findChulsoo(queue.poll());
+			if (bingo()) {
+				System.out.println(result);
+				return;
 			}
 		}
 	}
@@ -52,7 +51,7 @@ public class Main {
 				if (chulsoo[i][j] == 0) check++;
 			}
 			if (check == 5) cnt++;
-			if (cnt >=3) return true;
+			if (cnt >= 3) return true;
 		}
 
 		//col
