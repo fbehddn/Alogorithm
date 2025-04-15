@@ -8,42 +8,38 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int n, length, weight;
-	static Queue<int[]> bridge;
-	static Queue<int[]> wait; //weight, current
-	static int sec = 0;
-	static int sum = 0;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		n = Integer.parseInt(st.nextToken());
-		length = Integer.parseInt(st.nextToken());
-		weight = Integer.parseInt(st.nextToken());
-		bridge = new LinkedList<>();
-		wait = new LinkedList<>();
+		int n = Integer.parseInt(st.nextToken());
+		int length = Integer.parseInt(st.nextToken());
+		int weight = Integer.parseInt(st.nextToken());
+		Queue<Integer> bridge = new LinkedList<>();
+		Queue<Integer> wait = new LinkedList<>();
+		int sec = 0;
+		int bridgeWeight = 0;
 
 		st = new StringTokenizer(br.readLine());
+
 		for (int i = 0; i < n; i++) {
-			wait.add(new int[]{Integer.parseInt(st.nextToken()), 0});
+			wait.add(Integer.parseInt(st.nextToken()));
 		}
 
-		while (!wait.isEmpty() || !bridge.isEmpty()) {
+		for (int i = 0; i < length; i++) {
+			bridge.add(0);
+		}
+
+		while (!bridge.isEmpty()) {
 			sec++;
+			bridgeWeight -= bridge.poll();
 
-			for (int[] car : bridge) {
-				car[1]++;
-			}
-
-			if (!bridge.isEmpty() && bridge.peek()[1] > length) {
-				sum -= bridge.poll()[0];
-			}
-
-			if (!wait.isEmpty() && wait.peek()[0] + sum <= weight) {
-				int[] next = wait.poll();
-				next[1]++;
-				sum += next[0];
-				bridge.add(next);
+			if (!wait.isEmpty()) {
+				if (wait.peek() + bridgeWeight <= weight) {
+					int truck = wait.poll();
+					bridgeWeight += truck;
+					bridge.add(truck);
+				} else bridge.add(0);
 			}
 		}
 		System.out.println(sec);
