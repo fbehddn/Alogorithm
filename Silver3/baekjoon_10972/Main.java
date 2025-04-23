@@ -11,36 +11,44 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
-		arr = new int[N];
-
 		StringTokenizer st = new StringTokenizer(br.readLine());
-
+		arr = new int[N];
 		for (int i = 0; i < N; i++) {
 			arr[i] = Integer.parseInt(st.nextToken());
 		}
 
-		int i = arr.length - 1;
-		while (i > 0 && arr[i - 1] >= arr[i]) {
-			i--;
+		int idx = -1;
+		for (int i = arr.length - 1; i > 0; i--) {
+			if (arr[i - 1] < arr[i]) {
+				idx = i;
+				break;
+			}
 		}
-		if (i == 0) {
-			System.out.println(-1);
+		if (idx == -1) {
+			System.out.printf("-1");
 			return;
 		}
-		int j = arr.length - 1;
-		while (j > 0 && arr[j] <= arr[i - 1]) {
-			j--;
+		int j = 0;
+		for (int i = arr.length - 1; i >= idx; i--) {
+			if (arr[i] > arr[idx - 1]) {
+				j = i;
+				break;
+			}
 		}
-		swap(i - 1, j);
-		reverse(i, arr.length - 1);
-		for (int i1 : arr) {
-			System.out.print(i1 + " ");
+
+		swap(idx - 1, j);
+		sort(idx, arr.length - 1);
+
+		for (int i : arr) {
+			System.out.print(i + " ");
 		}
 	}
 
-	private static void reverse(int start, int end) {
-		while(start < end) {
-			swap(start++, end--);
+	private static void sort(int start, int end) {
+		while (start < end) {
+			swap(start, end);
+			start++;
+			end--;
 		}
 	}
 
