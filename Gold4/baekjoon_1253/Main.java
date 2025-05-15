@@ -7,15 +7,11 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Main {
-	static int N;
-	static int[] numbers;
-	static int result;
-
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		N = Integer.parseInt(br.readLine());
-		numbers = new int[N];
-		result = 0;
+		int N = Integer.parseInt(br.readLine());
+		int[] numbers = new int[N];
+		int result = 0;
 
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for (int i = 0; i < N; i++) {
@@ -28,22 +24,22 @@ public class Main {
 			int target = numbers[i];
 			int left = 0;
 			int right = numbers.length - 1;
-			function(left, right, target, i);
+
+			while (left < right) {
+				if (left == i || right == i) {
+					if (left == i) left++;
+					else right--;
+				} else {
+					int sum = numbers[left] + numbers[right];
+					if (sum > target) right--;
+					else if (sum < target) left++;
+					else {
+						result++;
+						break;
+					}
+				}
+			}
 		}
 		System.out.println(result);
-	}
-
-	private static void function(int left, int right, int target, int targetIdx) {
-		if (left == targetIdx) left++;
-		if (right == targetIdx) right--;
-		if (left == right) return;
-
-		if (numbers[left] + numbers[right] > target) {
-			right--;
-			function(left, right, target, targetIdx);
-		} else if (numbers[left] + numbers[right] < target) {
-			left++;
-			function(left, right, target, targetIdx);
-		} else result++;
 	}
 }
