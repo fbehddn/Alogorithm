@@ -8,7 +8,6 @@ import java.util.StringTokenizer;
 public class Main {
 	static int N, K;
 	static int[][] thing;
-	static int result = 0;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,9 +16,9 @@ public class Main {
 		N = Integer.parseInt(st.nextToken());
 		K = Integer.parseInt(st.nextToken());
 
-		thing = new int[N][2];
+		thing = new int[N + 1][2];
 
-		for (int i = 0; i < N; i++) {
+		for (int i = 1; i <= N; i++) {
 			st = new StringTokenizer(br.readLine());
 			int w = Integer.parseInt(st.nextToken());
 			int v = Integer.parseInt(st.nextToken());
@@ -27,19 +26,21 @@ public class Main {
 			thing[i][0] = w;
 			thing[i][1] = v;
 		}
+		/**
+		 * weigh, value
+		 */
+		int[][] dp = new int[N + 1][K + 1];
 
-		dfs(0, 0, 0);
-		System.out.println(result);
-	}
+		for (int i = 1; i <= N; i++) {
+			for (int k = 1; k <= K; k++) {
+				int itemWeight = thing[i][0];
+				if (itemWeight > k) dp[i][k] = dp[i - 1][k];
+				else {
+					dp[i][k] = Math.max(dp[i - 1][k], dp[i - 1][k - itemWeight] + thing[i][1]);
+				}
+			}
+		}
 
-	private static void dfs(int depth, int size, int value) {
-		if (depth == N) {
-			result = Math.max(result, value);
-			return;
-		}
-		if (size + thing[depth][0] <= K) {
-			dfs(depth + 1, size + thing[depth][0], value + thing[depth][1]);
-		}
-		dfs(depth + 1, size, value);
+		System.out.println(dp[N][K]);
 	}
 }
